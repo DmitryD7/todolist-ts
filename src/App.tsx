@@ -29,12 +29,18 @@ function App() {
         setFilter(value);
     };
 
-    function addTask (title:string) {
-        let newTask = {id: v1(), title: title , isDone: false};
+    function addTask(title: string) {
+        let newTask = {id: v1(), title: title, isDone: false};
         setTasks([newTask, ...tasks])
     };
 
-
+    function changeStatus(taskId: string, isDone: boolean) {
+        let task = tasks.find(task => task.id === taskId);
+        if (task) {
+            task.isDone = isDone;
+            setTasks([...tasks]);
+        }
+    };
 
     let taskForToDoList = tasks;
     if (filter === "active") {
@@ -52,6 +58,8 @@ function App() {
                 removeTask={removeTask}
                 changeFilter={changeFilter}
                 addTask={addTask}
+                changeStatus={changeStatus}
+                filter={filter}
             />
         </div>
     );
