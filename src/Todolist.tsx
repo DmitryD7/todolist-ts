@@ -29,7 +29,7 @@ function TodoList(props: PropsType) {
                 props.changeStatus(t.id, newIsDoneValue);
             };
             return (
-                <li key={t.id} className={t.isDone ? "is-done" : ""}>
+                <li key={t.id} className={(props.filter === "all" && t.isDone) ? "is-done" : ""}>
                     <input type="checkbox"
                            checked={t.isDone}
                            onChange={onChangeHandler}
@@ -44,10 +44,10 @@ function TodoList(props: PropsType) {
     const addTask = () => {
         if (title.trim() !== ""){
             props.addTask(title);
-            setTitle("");
         } else {
             setError("Field is required!")
         }
+        setTitle("");
     };
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
