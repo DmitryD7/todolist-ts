@@ -33,14 +33,14 @@ function AddItemForm(props: AddItemFormPropsType) {
     };
 
     return (
-        <div>
+        <div onBlur={()=>setError(null)}>
             <TextField
                 variant={"outlined"}
                 value={title}
                 onChange={onChangeHandler}
                 onKeyPress={onKeyPressHandler}
                 error={!!error}
-                label={"title"}
+                label={"Title"}
                 helperText={error}
             />
             <IconButton

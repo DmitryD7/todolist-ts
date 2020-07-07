@@ -3,7 +3,7 @@ import {FilterValueType} from "./App";
 import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
 import {Button, Checkbox, IconButton} from "@material-ui/core";
-import {Delete} from '@material-ui/icons';
+import {Delete, DeleteOutline} from '@material-ui/icons';
 
 export type TaskType = {
     id: string,
@@ -43,14 +43,20 @@ function TodoList(props: PropsType) {
             }
 
             return (
-                <div key={t.id} className={(props.filter === "all" && t.isDone) ? "is-done" : ""}>
+                <div key={t.id} className={(props.filter === "all" && t.isDone) ? "is-done" : ""}
+                     style={{display: 'flex',alignItems: 'center',  justifyContent: 'end'}}
+                >
                     <Checkbox
                         color={"secondary"}
                         checked={t.isDone}
                         onChange={onStatusChangeHandler}
                     />
                     <EditableSpan title={t.title} setNewTitle={onTitleChangeCallback}/>
-                    <Button onClick={() => props.removeTask(t.id, props.id)}>x</Button>
+                    <IconButton
+                        onClick={() => props.removeTask(t.id, props.id)}
+                        style={{marginLeft: 'auto'}}>
+                        <DeleteOutline/>
+                    </IconButton>
                 </div>
             )
         }
@@ -73,7 +79,7 @@ function TodoList(props: PropsType) {
             </h3>
             <AddItemForm addItem={createTaskTitle}/>
 
-            <div>
+            <div style={{margin: '20px 0'}}>
                 {JsxTaskEls}
             </div>
             <div>
