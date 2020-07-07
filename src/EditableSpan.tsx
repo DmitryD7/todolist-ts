@@ -14,8 +14,13 @@ function EditableSpan(props: EditableSpanType) {
         setEditMode(true);
     };
     const deactivateEditMode = () => {
-        setEditMode(false);
-        props.setNewTitle(title);
+        if (title.trim()) {
+            setEditMode(false);
+            props.setNewTitle(title);
+        } else {
+            setEditMode(false)
+            setTitle(props.title)
+        }
     };
 
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
