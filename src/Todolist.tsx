@@ -2,6 +2,8 @@ import React, {ChangeEvent} from 'react';
 import {FilterValueType} from "./App";
 import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
+import {Button, Checkbox, IconButton} from "@material-ui/core";
+import {Delete} from '@material-ui/icons';
 
 export type TaskType = {
     id: string,
@@ -25,7 +27,7 @@ type PropsType = {
 
 function TodoList(props: PropsType) {
 
-    const createTaskTitle = (title:string) => {
+    const createTaskTitle = (title: string) => {
         props.addTask(title, props.id)
     }
 
@@ -41,20 +43,21 @@ function TodoList(props: PropsType) {
             }
 
             return (
-                <li key={t.id} className={(props.filter === "all" && t.isDone) ? "is-done" : ""}>
-                    <input type="checkbox"
-                           checked={t.isDone}
-                           onChange={onStatusChangeHandler}
+                <div key={t.id} className={(props.filter === "all" && t.isDone) ? "is-done" : ""}>
+                    <Checkbox
+                        color={"secondary"}
+                        checked={t.isDone}
+                        onChange={onStatusChangeHandler}
                     />
                     <EditableSpan title={t.title} setNewTitle={onTitleChangeCallback}/>
-                    <button onClick={() => props.removeTask(t.id, props.id)}>x</button>
-                </li>
+                    <Button onClick={() => props.removeTask(t.id, props.id)}>x</Button>
+                </div>
             )
         }
     )
 
     const onHTitleChangeCallback = (newTitle: string) => {
-        props.changeTodosTitle (props.id, newTitle)
+        props.changeTodosTitle(props.id, newTitle)
     };
     const onAllClickHandler = () => props.changeFilter(props.id, "all");
     const onActiveClickHandler = () => props.changeFilter(props.id, "active");
@@ -64,23 +67,27 @@ function TodoList(props: PropsType) {
         <div>
             <h3>
                 <EditableSpan title={props.title} setNewTitle={onHTitleChangeCallback}/>
-                <button onClick={onRemoveToDoListHandler}>x</button>
+                <IconButton onClick={onRemoveToDoListHandler}>
+                    <Delete/>
+                </IconButton>
             </h3>
             <AddItemForm addItem={createTaskTitle}/>
 
-            <ul>
-                {JsxTaskEls}
-            </ul>
             <div>
-                <button className={props.filter === "all" ? "active-filter" : ""}
-                        onClick={onAllClickHandler}>All
-                </button>
-                <button className={props.filter === "active" ? "active-filter" : ""}
-                        onClick={onActiveClickHandler}>Active
-                </button>
-                <button className={props.filter === "completed" ? "active-filter" : ""}
-                        onClick={onCompletedClickHandler}>Completed
-                </button>
+                {JsxTaskEls}
+            </div>
+            <div>
+                <Button variant={props.filter === "all" ? "outlined" : "text"}
+                        onClick={onAllClickHandler}
+                >All</Button>
+                <Button variant={props.filter === "active" ? "outlined" : "text"}
+                        onClick={onActiveClickHandler}
+                        color={"primary"}
+                >Active </Button>
+                <Button variant={props.filter === "completed" ? "outlined" : "text"}
+                        onClick={onCompletedClickHandler}
+                        color={"secondary"}
+                >Completed</Button>
             </div>
         </div>
     )
