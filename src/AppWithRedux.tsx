@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
-import TodoList, {TaskType} from "./Todolist";
-import AddItemForm from "./AddItemForm";
+import {TaskType, TodoList} from "./Todolist";
 import {AppBar, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
 import {AddTodolistAC} from "./state/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
+import {AddItemForm} from "./AddItemForm";
 
 
 export type FilterValueType = "all" | "active" | "completed";
@@ -21,15 +21,15 @@ export type TasksStateType = {
     [key: string]: Array<TaskType>,
 };
 
-function AppWithRedux() {
+export const AppWithRedux = React.memo(() => {
+    console.log('APP')
     const toDoLists = useSelector<AppRootStateType, Array<ToDoListType>>(state => state.todolists)
 
     const dispatch = useDispatch()
 
-    function addToDoList(title: string) {
+    const addToDoList = useCallback((title: string) => {
         dispatch(AddTodolistAC(title))
-    };
-
+    }, [dispatch])
 
     return (
         <div className="App">
@@ -66,6 +66,4 @@ function AppWithRedux() {
             </Container>
         </div>
     );
-};
-
-export default AppWithRedux;
+})
