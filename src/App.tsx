@@ -118,7 +118,8 @@ function App() {
     };
 
 
-    return (
+    /*return (
+
         <div className="App">
             <AppBar position="static">
                 <Toolbar>
@@ -128,7 +129,7 @@ function App() {
                     <Typography variant="h6">
                         ToDo-Lists
                     </Typography>
-                    {/*<Button color="inherit">Login</Button>*/}
+                    {/!*<Button color="inherit">Login</Button>*!/}
                 </Toolbar>
             </AppBar>
             <Container fixed>
@@ -166,7 +167,7 @@ function App() {
                 </Grid>
             </Container>
         </div>
-    );
+    );*/
 };
 
 export default App;

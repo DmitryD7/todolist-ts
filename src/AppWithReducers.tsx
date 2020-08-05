@@ -92,7 +92,7 @@ function AppWithReducers() {
 
 
 
-    return (
+/*    return (
         <div className="App">
             <AppBar position="static">
                 <Toolbar>
@@ -102,7 +102,7 @@ function AppWithReducers() {
                     <Typography variant="h6">
                         ToDo-Lists
                     </Typography>
-                    {/*<Button color="inherit">Login</Button>*/}
+                    {/!*<Button color="inherit">Login</Button>*!/}
                 </Toolbar>
             </AppBar>
             <Container fixed>
@@ -140,7 +140,7 @@ function AppWithReducers() {
                 </Grid>
             </Container>
         </div>
-    );
+    );*/
 };
 
 export default AppWithReducers;
