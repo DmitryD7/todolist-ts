@@ -14,11 +14,14 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-redux": "^7.1.9",
     "@types/uuid": "^8.0.0",
+    "axios": "^0.19.2",
+    "init": "^0.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "^3.4.2",
     "redux": "^4.0.5",
+    "sb": "^6.0.3",
     "typescript": "~3.7.2",
     "uuid": "^8.1.0"
   },
@@ -26,7 +29,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public",
+    "jest:integration": "jest -c integration/jest.config.js",
+    "test:integration": "start-server-and-test storybook http-get://localhost:9009 jest:integration"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -44,6 +51,21 @@
     ]
   },
   "devDependencies": {
-    "csscomb": "^4.3.0"
+    "@babel/core": "^7.11.1",
+    "@storybook/addon-actions": "^6.0.3",
+    "@storybook/addon-essentials": "^6.0.3",
+    "@storybook/addon-links": "^6.0.3",
+    "@storybook/addon-storyshots": "^6.0.4",
+    "@storybook/addon-storysource": "^6.0.13",
+    "@storybook/node-logger": "^6.0.3",
+    "@storybook/preset-create-react-app": "^3.1.4",
+    "@storybook/react": "^6.0.3",
+    "babel-loader": "^8.1.0",
+    "csscomb": "^4.3.0",
+    "jest-image-snapshot": "^4.1.0",
+    "jest-puppeteer": "^4.4.0",
+    "puppeteer": "^5.2.1",
+    "react-is": "^16.13.1",
+    "start-server-and-test": "^1.11.3"
   }
 }
