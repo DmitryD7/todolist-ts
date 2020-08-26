@@ -1,20 +1,20 @@
 import React, {useCallback} from 'react';
-import {FilterValueType} from "./AppWithRedux";
 import {EditableSpan} from "./EditableSpan";
 import {Button, IconButton} from "@material-ui/core";
 import {Delete} from '@material-ui/icons';
 import {useDispatch, useSelector} from "react-redux";
-import {ChangeTodolistFilterAC, ChangeTodolistTitleAC, RemoveTodolistAC} from "./state/todolists-reducer";
+import {
+    ChangeTodolistFilterAC,
+    ChangeTodolistTitleAC,
+    FilterValueType,
+    RemoveTodolistAC
+} from "./state/todolists-reducer";
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
 import {AppRootStateType} from "./state/store";
 import {AddItemForm} from "./AddItemForm";
 import {Task} from "./Task";
+import {TaskStatuses, TaskType} from "./api/todolist-api";
 
-export type TaskType = {
-    id: string,
-    title: string,
-    isDone: boolean,
-};
 
 type PropsType = {
     id: string,
@@ -29,8 +29,8 @@ export const TodoList = React.memo((props: PropsType) => {
 
     const createTaskTitle = useCallback((title: string) => dispatch(addTaskAC(title, props.id)), [dispatch, props.id])
 
-    const changeStatus = useCallback((taskId: string, isDone: boolean, toDoListID: string) => {
-        dispatch(changeTaskStatusAC(taskId, isDone, toDoListID))
+    const changeStatus = useCallback((taskId: string, status: TaskStatuses, toDoListID: string) => {
+        dispatch(changeTaskStatusAC(taskId, status, toDoListID))
     }, [dispatch]);
 
     const changeTaskTitle = useCallback((id: string, title: string, toDoListID: string) => {
@@ -43,10 +43,10 @@ export const TodoList = React.memo((props: PropsType) => {
 
     let taskForToDoList = tasks;
     if (props.filter === "active") {
-        taskForToDoList = tasks.filter(t => t.isDone === false)
+        taskForToDoList = tasks.filter(t => t.status === TaskStatuses.New)
     }
     if (props.filter === "completed") {
-        taskForToDoList = tasks.filter(t => t.isDone === true)
+        taskForToDoList = tasks.filter(t => t.status === TaskStatuses.Completed)
     }
     let JsxTaskEls = taskForToDoList.map(t => <Task
         key={t.id}

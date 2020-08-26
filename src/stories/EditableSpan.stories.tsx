@@ -9,5 +9,5 @@ export default {
 } as Meta;
 
 export const EditableSpanBasic = () => {
-    return <EditableSpan title={'Hello'} setNewTitle={action('Title was chnged')}/>
+    return <EditableSpan title={'Hello'} setNewTitle={action('Title was changed')}/>
 }

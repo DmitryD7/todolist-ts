@@ -1,21 +1,13 @@
 import React, {useCallback} from 'react';
 import './App.css';
-import {TaskType, TodoList} from "./Todolist";
+import {TodoList} from "./Todolist";
 import {AppBar, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
-import {AddTodolistAC} from "./state/todolists-reducer";
+import {AddTodolistAC, TodolistDomainType} from "./state/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 import {AddItemForm} from "./AddItemForm";
-
-
-export type FilterValueType = "all" | "active" | "completed";
-
-export type ToDoListType = {
-    id: string,
-    title: string,
-    filter: FilterValueType,
-};
+import {TaskType} from "./api/todolist-api";
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>,
@@ -23,7 +15,7 @@ export type TasksStateType = {
 
 export const AppWithRedux = React.memo(() => {
     console.log('APP')
-    const toDoLists = useSelector<AppRootStateType, Array<ToDoListType>>(state => state.todolists)
+    const toDoLists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
 
     const dispatch = useDispatch()
 
