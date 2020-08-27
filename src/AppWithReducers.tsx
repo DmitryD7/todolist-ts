@@ -92,9 +92,9 @@ function AppWithReducers() {
     };
 
     function addToDoList(title: string) {
-        let action = AddTodolistAC(title)
+        /*let action = AddTodolistAC(title)
         dispatchTodolistReducer(action)
-        dispatchTasksReducer(action)
+        dispatchTasksReducer(action)*/
     };
 
     function changeTodosTitle(id: string, title: string) {
@@ -105,9 +105,9 @@ function AppWithReducers() {
         dispatchTasksReducer(removeTaskAC(id, toDoListID))
     };
 
-    function addTask(title: string, toDoListID: string) {
-        dispatchTasksReducer(addTaskAC(title, toDoListID))
-    };
+    // function addTask(title: string, toDoListID: string) {
+    //     dispatchTasksReducer(addTaskAC(title, toDoListID))
+    // };
 
     function changeStatus(taskId: string, status: TaskStatuses, toDoListID: string) {
         dispatchTasksReducer(changeTaskStatusAC(taskId, status, toDoListID))
