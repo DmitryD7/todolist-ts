@@ -1,13 +1,12 @@
-import {addTaskAC, removeTaskAC, setTasksAC, tasksReducer, updateTaskAC} from './tasks-reducer';
-import {TasksStateType} from '../AppWithRedux';
+import {addTaskAC, removeTaskAC, setTasksAC, tasksReducer, TasksStateType, updateTaskAC} from './tasks-reducer';
 import {
-    AddTodolistAC,
-    RemoveTodolistAC,
-    SetTodolistsAC,
+    addTodolistAC,
+    removeTodolistAC,
+    setTodolistsAC,
     TodolistDomainType,
     todolistsReducer
-} from "./todolists-reducer";
-import {TaskPriorities, TaskStatuses} from "../api/todolist-api";
+} from "../todolistReducer/todolists-reducer";
+import {TaskPriorities, TaskStatuses} from "../../../api/todolist-api";
 
 const startState: TasksStateType = {
     "todolistId1": [
@@ -101,7 +100,7 @@ test('tasks should be added for todolist', () => {
 })
 
 test('empty arrays should be added when we set todolists', () => {
-    const action = SetTodolistsAC([
+    const action = setTodolistsAC([
         {id: "1", title: "title 1", order: 0, addedDate: ""},
         {id: "2", title: "title 2", order: 0, addedDate: ""}
     ])
@@ -170,7 +169,7 @@ test('title of specified task should be changed', () => {
 
 test('new array should be added when new todolist is added', () => {
     let startTodolist = [] as Array<TodolistDomainType>
-    const action = AddTodolistAC({id: 'todolistId3', title: "What to learn", addedDate: '', order: 0},);
+    const action = addTodolistAC({id: 'todolistId3', title: "What to learn", addedDate: '', order: 0},);
     const endState = tasksReducer(startState, action)
     const endTodolistState = todolistsReducer(startTodolist, action)
 
@@ -186,7 +185,7 @@ test('new array should be added when new todolist is added', () => {
 });
 
 test('tasks array should be deleted when todolist is removed', () => {
-    const action = RemoveTodolistAC('todolistId2');
+    const action = removeTodolistAC('todolistId2');
     const endState = tasksReducer(startState, action)
 
     const keys = Object.keys(endState);
