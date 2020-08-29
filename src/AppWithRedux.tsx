@@ -3,7 +3,7 @@ import './App.css';
 import {TodoList} from "./Todolist";
 import {AppBar, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
-import {AddTodolistAC, AddTodolistTC, setTodolistsTC, TodolistDomainType} from "./state/todolists-reducer";
+import {AddTodolistTC, setTodolistsTC, TodolistDomainType} from "./state/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./state/store";
 import {AddItemForm} from "./AddItemForm";
@@ -14,7 +14,6 @@ export type TasksStateType = {
 };
 
 export const AppWithRedux = React.memo(() => {
-
     useEffect(() => {
         dispatch(setTodolistsTC())
     }, [])

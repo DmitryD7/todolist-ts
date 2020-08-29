@@ -2,14 +2,13 @@ import React, {useReducer} from 'react';
 import './App.css';
 import {v1} from "uuid";
 import {
-    AddTodolistAC,
     ChangeTodolistFilterAC,
     ChangeTodolistTitleAC,
     FilterValueType,
     RemoveTodolistAC,
     todolistsReducer
 } from "./state/todolists-reducer";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from "./state/tasks-reducer";
+import {removeTaskAC, tasksReducer} from "./state/tasks-reducer";
 import {TaskPriorities, TaskStatuses, TaskType} from "./api/todolist-api";
 
 
@@ -110,11 +109,11 @@ function AppWithReducers() {
     // };
 
     function changeStatus(taskId: string, status: TaskStatuses, toDoListID: string) {
-        dispatchTasksReducer(changeTaskStatusAC(taskId, status, toDoListID))
+        /*dispatchTasksReducer(updateTaskAC(taskId, status, toDoListID))*/
     };
 
     function changeTaskTitle(id: string, title: string, toDoListID: string) {
-        dispatchTasksReducer(changeTaskTitleAC(id, title, toDoListID))
+        // dispatchTasksReducer(changeTaskTitleAC(id, title, toDoListID))
     };
 
 /*    return (
