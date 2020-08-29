@@ -136,7 +136,7 @@ test('correct task should be deleted from correct array', () => {
 
 test('correct task should be added to correct array', () => {
     const action = addTaskAC({
-        todoListId: 'todoListId',
+        todoListId: 'todolistId2',
         title: "juice",
         id: 'id exist',
         status: TaskStatuses.New,
