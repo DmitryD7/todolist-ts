@@ -5,18 +5,11 @@ import {Delete} from '@material-ui/icons';
 import {useDispatch, useSelector} from "react-redux";
 import {
     ChangeTodolistFilterAC,
-    ChangeTodolistTitleAC, ChangeTodolistTitleTC,
+    ChangeTodolistTitleTC,
     FilterValueType,
-    RemoveTodolistAC, RemoveTodolistTC
+    RemoveTodolistTC
 } from "./state/todolists-reducer";
-import {
-    addTaskAC,
-    addTaskTC,
-    changeTaskStatusAC, changeTaskStatusTC,
-    changeTaskTitleAC, changeTaskTitleTC,
-    removeTaskAC, removeTaskTC,
-    setTasksTC
-} from "./state/tasks-reducer";
+import {addTaskTC, removeTaskTC, setTasksTC, updateTaskTC} from "./state/tasks-reducer";
 import {AppRootStateType} from "./state/store";
 import {AddItemForm} from "./AddItemForm";
 import {Task} from "./Task";
@@ -30,8 +23,6 @@ type PropsType = {
 };
 
 export const TodoList = React.memo((props: PropsType) => {
-    console.log('TODOLIST')
-
     useEffect(() => {
         dispatch(setTasksTC(props.id))
     }, [])
@@ -41,10 +32,10 @@ export const TodoList = React.memo((props: PropsType) => {
 
     const createTask = useCallback((title: string) => dispatch(addTaskTC(props.id, title)), [])
     const changeStatus = useCallback((taskId: string, status: TaskStatuses, toDoListID: string) => {
-        dispatch(changeTaskStatusTC(taskId, toDoListID, status))
+        dispatch(updateTaskTC(taskId, toDoListID, {status}))
     }, [dispatch]);
     const changeTaskTitle = useCallback((id: string, title: string, toDoListID: string) => {
-        dispatch(changeTaskTitleTC(id, toDoListID, title))
+        dispatch(updateTaskTC(id, toDoListID, {title}))
     }, [dispatch]);
     const removeTask = useCallback((id: string, toDoListID: string) => {
         dispatch(removeTaskTC(id, toDoListID))
