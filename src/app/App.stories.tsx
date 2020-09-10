@@ -10,5 +10,5 @@ export default {
 } as Meta;
 
 export const AppBasic = () => {
-    return <App/>
+    return <App demo={true}/>
 }
