@@ -14,7 +14,7 @@ export const todolistAPI = {
         return instance.get<Array<TodolistType>>('todo-lists')
     },
     createTodolist(title: string) {
-        return instance.post<CommonResponseType<{item: TodolistType}>>(`todo-lists/`, {title})
+        return instance.post<CommonResponseType<{ item: TodolistType }>>(`todo-lists/`, {title})
     },
     deleteTodolist(id: string) {
         return instance.delete<CommonResponseType>(`todo-lists/${id}`)
@@ -28,7 +28,7 @@ export const tasksAPI = {
         return instance.get<GetTasksResponseType>(`todo-lists/${todolistId}/tasks`)
     },
     createTask(todolistId: string, title: string) {
-        return instance.post<CommonResponseType<{item: TaskType}>>(`todo-lists/${todolistId}/tasks`, {title})
+        return instance.post<CommonResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, {title})
     },
     deleteTask(todolistId: string, taskId: string) {
         return instance.delete<CommonResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`)
@@ -36,6 +36,24 @@ export const tasksAPI = {
     updateTask(todolistId: string, taskId: string, properties: UpdateTaskModelType) {
         return instance.put<CommonResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`, properties)
     },
+}
+
+export const authAPI = {
+    me() {
+        return instance.get<CommonResponseType<AuthMeResponseDataType>>(`auth/me`)
+    },
+    logout() {
+        return instance.delete<CommonResponseType>(`auth/login`)
+    },
+    login(data: LogInRequestType) {
+        return instance.post<CommonResponseType<{ id: number }>>(`auth/login`, data)
+    }
+}
+export type LogInRequestType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha: string
 }
 
 // TYPES
@@ -50,19 +68,22 @@ export type CommonResponseType<T = {}> = {
     messages: Array<string>
     data: T
 }
+
 export enum TaskStatuses {
     New = 0,
     InProgress = 1,
-    Completed= 2,
+    Completed = 2,
     Draft = 3
 }
+
 export enum TaskPriorities {
     Low = 0,
-    Middle= 1,
+    Middle = 1,
     High = 2,
     Urgently = 3,
     Later = 4
 }
+
 export type TaskType = {
     todoListId: string
     title: string
@@ -87,4 +108,10 @@ export type GetTasksResponseType = {
     error: null | string
     items: Array<TaskType>
     totalCount: number
+}
+
+export type AuthMeResponseDataType = {
+    id: number
+    email: string
+    login: string
 }
