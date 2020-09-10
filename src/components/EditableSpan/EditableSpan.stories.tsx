@@ -11,3 +11,7 @@ export default {
 export const EditableSpanBasic = () => {
     return <EditableSpan title={'Hello'} setNewTitle={action('Title was changed')}/>
 }
+
+export const EditableSpanDisabledExample = () => {
+    return <EditableSpan title={'Hello'} setNewTitle={action('Title was changed')} disabled={true}/>
+}

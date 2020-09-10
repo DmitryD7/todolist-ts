@@ -11,3 +11,7 @@ export default {
 export const AddItemFormBasic = () => {
     return <AddItemForm addItem={action('Button clicked')}/>
 }
+
+export const AddItemFormDisabledExample = () => {
+    return <AddItemForm addItem={action('Button clicked')} disabled={true}/>
+}
