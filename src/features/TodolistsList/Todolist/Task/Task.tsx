@@ -34,7 +34,7 @@ export const Task = React.memo((props: TaskPropsType) => {
                 onChange={onStatusChangeHandler}
             />
 
-            <EditableSpan title={props.task.title} setNewTitle={onTitleChangeCallback}/>
+            <EditableSpan title={props.task.title} setNewTitle={onTitleChangeCallback} />
             <IconButton
                 onClick={removeTaskHandler}
                 style={{marginLeft: 'auto'}}>
