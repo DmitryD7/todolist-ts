@@ -45,15 +45,9 @@ export const authAPI = {
     logout() {
         return instance.delete<CommonResponseType>(`auth/login`)
     },
-    login(data: LogInRequestType) {
-        return instance.post<CommonResponseType<{ id: number }>>(`auth/login`, data)
+    login(data: LoginParamsType) {
+        return instance.post<CommonResponseType<{ id?: number }>>(`auth/login`, data)
     }
-}
-export type LogInRequestType = {
-    email: string
-    password: string
-    rememberMe: boolean
-    captcha: string
 }
 
 // TYPES
@@ -114,4 +108,11 @@ export type AuthMeResponseDataType = {
     id: number
     email: string
     login: string
+}
+
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
 }
