@@ -1,16 +1,19 @@
 import React, {useCallback, useEffect} from "react";
-import {addTodolistTC, setTodolistsTC, TodolistDomainType} from "./todolistReducer/todolists-reducer";
+import {addTodolistTC, getTodolistsTC, TodolistDomainType} from "./todolistReducer/todolists-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/store";
 import {Grid, Paper} from "@material-ui/core";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
 import {TodoList} from "./Todolist/Todolist";
 
-type TodolistsListPropsType = {}
+type TodolistsListPropsType = {
+    demo?: boolean
+}
 
-export function TodolistsList(props: TodolistsListPropsType) {
+export function TodolistsList({demo = false, ...props}: TodolistsListPropsType) {
     useEffect(() => {
-        dispatch(setTodolistsTC())
+        if (!demo)
+        dispatch(getTodolistsTC())
     }, [])
 
     const toDoLists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
@@ -29,10 +32,9 @@ export function TodolistsList(props: TodolistsListPropsType) {
             {toDoLists.map(tl => <Grid item key={tl.id}>
                 <Paper style={{padding: '10px'}}>
                     <TodoList
+                        todolist={tl}
+                        demo={demo}
                         key={tl.id}
-                        id={tl.id}
-                        title={tl.title}
-                        filter={tl.filter}
                     /></Paper>
             </Grid>)}
         </Grid>
