@@ -13,7 +13,7 @@ export const EditableSpan = React.memo(({disabled = false, ...props}: EditableSp
     let [title, setTitle] = useState<string>(props.title)
 
     const activateEditMode = () => {
-       !disabled && setEditMode(true);
+        !disabled && setEditMode(true);
     };
     const deactivateEditMode = () => {
         if (title.trim()) {
