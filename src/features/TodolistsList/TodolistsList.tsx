@@ -12,15 +12,16 @@ type TodolistsListPropsType = {
 }
 
 export function TodolistsList({demo = false, ...props}: TodolistsListPropsType) {
-    useEffect(() => {
-        if (!demo || isLoggedIn)
-            dispatch(getTodolistsTC())
-    }, [])
-
     const toDoLists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
-
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (demo || !isLoggedIn){
+            return
+        }
+        dispatch(getTodolistsTC())
+    }, [])
 
     const addToDoList = useCallback((title: string) => {
         dispatch(addTodolistTC(title))

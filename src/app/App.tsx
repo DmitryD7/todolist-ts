@@ -28,12 +28,11 @@ export const App = React.memo(({demo = false, ...props}: AppPropsType) => {
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const isInitialized = useSelector<AppRootStateType>(state => state.app.isInitialized)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(initializeAppTC())
     }, [])
-
-    const dispatch = useDispatch()
 
     const logout = useCallback(() => {
         dispatch(logoutTC())

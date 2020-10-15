@@ -6,7 +6,7 @@ test('ids should be equals', () => {
     const startTasksState: TasksStateType = {};
     const startTodolistsState: Array<TodolistDomainType> = [];
 
-    const action = addTodolistAC({id: 'todolistId1', title: "What to learn", addedDate: '', order: 0});
+    const action = addTodolistAC({todolist: {id: 'todolistId1', title: "What to learn", addedDate: '', order: 0}});
 
     const endTasksState = tasksReducer(startTasksState, action)
     const endTodolistsState = todolistsReducer(startTodolistsState, action)
@@ -15,8 +15,8 @@ test('ids should be equals', () => {
     const idFromTasks = keys[0];
     const idFromTodolists = endTodolistsState[0].id;
 
-    expect(idFromTasks).toBe(action.todolist.id);
-    expect(idFromTodolists).toBe(action.todolist.id);
+    expect(idFromTasks).toBe(action.payload.todolist.id);
+    expect(idFromTodolists).toBe(action.payload.todolist.id);
 });
 
 test('property with todolistId should be deleted', () => {
@@ -100,15 +100,14 @@ test('property with todolistId should be deleted', () => {
     };
 
     const startStateTodo: Array<TodolistDomainType> = [
-        {id: 'todolistId1', title: "What to learn", filter: "all", addedDate: '', order: 0},
-        {id: 'todolistId2', title: "What to buy", filter: "all", addedDate: '', order: 0},
+        {id: 'todolistId1', title: "What to learn", filter: "all", addedDate: '', order: 0, entityStatus: "idle"},
+        {id: 'todolistId2', title: "What to buy", filter: "all", addedDate: '', order: 0, entityStatus: "idle"},
     ]
 
-    const action = removeTodolistAC("todolistId2");
+    const action = removeTodolistAC({id: "todolistId2"});
 
     const endState = tasksReducer(startState, action)
     const endStateTodo = todolistsReducer(startStateTodo, action)
-
 
     const keys = Object.keys(endState);
 
@@ -118,6 +117,3 @@ test('property with todolistId should be deleted', () => {
     expect(endStateTodo.length).toBe(1);
     expect(endStateTodo[1]).toBeUndefined();
 });
-
-
-
