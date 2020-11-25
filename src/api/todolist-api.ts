@@ -58,8 +58,13 @@ export type TodolistType = {
     order: number
     title: string
 }
+export type FieldErrorType = {
+    field: string
+    error: string
+}
 export type CommonResponseType<T = {}> = {
     resultCode: number
+    fieldsErrors?: Array<FieldErrorType>
     messages: Array<string>
     data: T
 }

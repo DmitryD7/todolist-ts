@@ -9,7 +9,7 @@ import {
     removeTodolistTC,
     TodolistDomainType
 } from "../todolistReducer/todolists-reducer";
-import {addTaskTC, getTasksTC, removeTaskTC, updateTaskTC} from "../taskReducer/tasks-reducer";
+import {addTaskTC, getTasks, removeTaskTC, updateTaskTC} from "../taskReducer/tasks-reducer";
 import {AppRootStateType} from "../../../app/store";
 import {AddItemForm} from "../../../components/AddItemForm/AddItemForm";
 import {Task} from "./Task/Task";
@@ -24,7 +24,7 @@ type PropsType = {
 export const TodoList = React.memo(({demo = false, ...props}: PropsType) => {
     useEffect(() => {
         if (!demo)
-            dispatch(getTasksTC(props.todolist.id))
+            dispatch(getTasks(props.todolist.id))
     }, [])
 
     const tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.todolist.id])
@@ -37,8 +37,8 @@ export const TodoList = React.memo(({demo = false, ...props}: PropsType) => {
     const changeTaskTitle = useCallback((id: string, title: string, toDoListID: string) => {
         dispatch(updateTaskTC(id, toDoListID, {title}))
     }, [dispatch]);
-    const removeTask = useCallback((id: string, toDoListID: string) => {
-        dispatch(removeTaskTC(id, toDoListID))
+    const removeTask = useCallback((taskId: string, todolistId: string) => {
+        dispatch(removeTaskTC({taskId, todolistId}))
     }, [dispatch]);
 
     let taskForToDoList = tasks;
