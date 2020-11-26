@@ -26,16 +26,17 @@ export const TodoList = React.memo(({demo = false, ...props}: PropsType) => {
         if (!demo)
             dispatch(getTasks(props.todolist.id))
     }, [])
+    const todolistId = props.todolist.id
 
     const tasks = useSelector<AppRootStateType, Array<TaskType>>(state => state.tasks[props.todolist.id])
     const dispatch = useDispatch()
 
-    const createTask = useCallback((title: string) => dispatch(addTaskTC(props.todolist.id, title)), [])
+    const createTask = useCallback((title: string) => dispatch(addTaskTC({todolistId, title})), [])
     const changeStatus = useCallback((taskId: string, status: TaskStatuses, toDoListID: string) => {
-        dispatch(updateTaskTC(taskId, toDoListID, {status}))
+        dispatch(updateTaskTC({taskId, todolistId: toDoListID, domainModel: {status}}))
     }, [dispatch]);
     const changeTaskTitle = useCallback((id: string, title: string, toDoListID: string) => {
-        dispatch(updateTaskTC(id, toDoListID, {title}))
+        dispatch(updateTaskTC({taskId: id, todolistId: toDoListID, domainModel: {title}}))
     }, [dispatch]);
     const removeTask = useCallback((taskId: string, todolistId: string) => {
         dispatch(removeTaskTC({taskId, todolistId}))
@@ -57,11 +58,11 @@ export const TodoList = React.memo(({demo = false, ...props}: PropsType) => {
         removeTask={removeTask}
     />)
 
-    const onHTitleChangeCallback = useCallback((newTitle: string) => dispatch(changeTodolistTitleTC(props.todolist.id, newTitle)), [dispatch, props.todolist.id]);
+    const onHTitleChangeCallback = useCallback((newTitle: string) => dispatch(changeTodolistTitleTC({todolistId: props.todolist.id, newTodolistTitle: newTitle})), [dispatch, props.todolist.id]);
     const onAllClickHandler = useCallback(() => dispatch(changeTodolistFilterAC({id: props.todolist.id, filter: "all"})), [dispatch, props.todolist.id]);
     const onActiveClickHandler = useCallback(() => dispatch(changeTodolistFilterAC({id: props.todolist.id, filter:"active"})), [dispatch, props.todolist.id]);
     const onCompletedClickHandler = useCallback(() => dispatch(changeTodolistFilterAC({id: props.todolist.id, filter:"completed"})), [dispatch, props.todolist.id]);
-    const onRemoveToDoListHandler = useCallback(() => dispatch(removeTodolistTC(props.todolist.id)), [dispatch, props.todolist.id]);
+    const onRemoveToDoListHandler = useCallback(() => dispatch(removeTodolistTC({todolistId: props.todolist.id})), [dispatch, props.todolist.id]);
 
 
     return (

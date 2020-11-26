@@ -24,7 +24,7 @@ export function TodolistsList({demo = false, ...props}: TodolistsListPropsType) 
     }, [])
 
     const addToDoList = useCallback((title: string) => {
-        dispatch(addTodolistTC(title))
+        dispatch(addTodolistTC({title}))
     }, [dispatch])
 
     if (!isLoggedIn) {
