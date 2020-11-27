@@ -7,7 +7,7 @@ import {TaskStatuses, TaskType} from "../../../../api/todolist-api";
 export type TaskPropsType = {
     changeTaskStatus: (id: string, status: TaskStatuses, todoListId: string) => void
     changeTaskTitle: (taskId: string, newTitle: string, todoListId: string) => void
-    removeTask: (taskId: string, todoListId: string) => void
+    removeTask: (arg: { taskId: string, todolistId: string }) => void
     todoListId: string
     task: TaskType
 }
@@ -21,7 +21,7 @@ export const Task = React.memo((props: TaskPropsType) => {
         props.changeTaskTitle(props.task.id, newTitle, props.todoListId);
     }
     const removeTaskHandler = () => {
-        props.removeTask(props.task.id, props.todoListId);
+        props.removeTask({taskId: props.task.id, todolistId: props.todoListId});
     }
 
     return (
@@ -34,7 +34,7 @@ export const Task = React.memo((props: TaskPropsType) => {
                 onChange={onStatusChangeHandler}
             />
 
-            <EditableSpan title={props.task.title} setNewTitle={onTitleChangeCallback} />
+            <EditableSpan title={props.task.title} setNewTitle={onTitleChangeCallback}/>
             <IconButton
                 onClick={removeTaskHandler}
                 style={{marginLeft: 'auto'}}>

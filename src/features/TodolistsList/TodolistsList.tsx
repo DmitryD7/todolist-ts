@@ -1,31 +1,29 @@
-import React, {useCallback, useEffect} from "react";
-import {addTodolistTC, getTodolistsTC, TodolistDomainType} from "./todolistReducer/todolists-reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../app/store";
+import React, {useEffect} from "react";
+import {TodolistDomainType} from "./todolistReducer/todolists-reducer";
+import {useSelector} from "react-redux";
+import {AppRootStateType, useActions} from "../../app/store";
 import {Grid, Paper} from "@material-ui/core";
 import {AddItemForm} from "../../components/AddItemForm/AddItemForm";
 import {TodoList} from "./Todolist/Todolist";
 import {Redirect} from "react-router-dom";
+import {selectIsLoggedIn} from "../Auth/selectors";
+import {todolistsActions} from "./index";
 
 type TodolistsListPropsType = {
     demo?: boolean
 }
 
 export function TodolistsList({demo = false, ...props}: TodolistsListPropsType) {
-    const toDoLists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
-    const dispatch = useDispatch()
+    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
+    const isLoggedIn = useSelector(selectIsLoggedIn)
+    const {addTodolist, getTodolists} = useActions(todolistsActions)
 
     useEffect(() => {
-        if (demo || !isLoggedIn){
+        if (demo || !isLoggedIn) {
             return
         }
-        dispatch(getTodolistsTC())
+        getTodolists()
     }, [])
-
-    const addToDoList = useCallback((title: string) => {
-        dispatch(addTodolistTC({title}))
-    }, [dispatch])
 
     if (!isLoggedIn) {
         return <Redirect to={'/login'}/>
@@ -33,10 +31,10 @@ export function TodolistsList({demo = false, ...props}: TodolistsListPropsType) 
 
     return <>
         <Grid container style={{padding: '20px', margin: '10px'}}>
-            <AddItemForm addItem={addToDoList}/>
+            <AddItemForm addItem={addTodolist}/>
         </Grid>
         <Grid container spacing={10}>
-            {toDoLists.map(tl => <Grid item key={tl.id}>
+            {todolists.map(tl => <Grid item key={tl.id}>
                 <Paper style={{padding: '10px'}}>
                     <TodoList
                         todolist={tl}
