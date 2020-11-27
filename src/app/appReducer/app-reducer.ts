@@ -2,7 +2,7 @@ import {authAPI} from "../../api/todolist-api";
 import {setIsLoggedInAC} from "../../features/Auth/auth-reducer";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
-export const initializeAppTC = createAsyncThunk('app/initializeApp', async (param, {dispatch}) => {
+const initializeAppTC = createAsyncThunk('app/initializeApp', async (param, {dispatch}) => {
     const res = await authAPI.me()
     if (res.data.resultCode === 0) {
         dispatch(setIsLoggedInAC({value: true}));
@@ -10,6 +10,8 @@ export const initializeAppTC = createAsyncThunk('app/initializeApp', async (para
         dispatch(setIsLoggedInAC({value: false}))
     }
 })
+
+export const asyncAppActions = {initializeAppTC}
 
 const slice = createSlice({
     name: 'app',

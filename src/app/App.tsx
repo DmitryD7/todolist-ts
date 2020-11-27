@@ -11,15 +11,16 @@ import {
     Typography
 } from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
-import {TodolistsList} from "../features/TodolistsList/TodolistsList";
+import {TodolistsList} from "../features/TodolistsList";
 import {ErrorSnackbar} from "../components/ErrorSnackBar/ErrorSnackBar";
 import {useDispatch, useSelector} from "react-redux";
 import {Route} from 'react-router-dom';
-import {Login} from "../features/Auth/Login";
-import {initializeAppTC} from "./appReducer/app-reducer";
-import {logoutTC} from "../features/Auth/auth-reducer";
+import {Login} from "../features/Auth";
+import {asyncAppActions} from "./appReducer/app-reducer";
 import {selectIsInitialized, selectStatus} from "./selectors";
-import {selectIsLoggedIn} from "../features/Auth/selectors";
+import {useActions} from "./store";
+import {authActions} from "../features/Auth";
+import {authSelectors} from "../features/Auth";
 
 type AppPropsType = {
     demo?: boolean
@@ -28,16 +29,15 @@ type AppPropsType = {
 export const App = React.memo(({demo = false, ...props}: AppPropsType) => {
     const status = useSelector(selectStatus)
     const isInitialized = useSelector(selectIsInitialized)
-    const isLoggedIn = useSelector(selectIsLoggedIn)
+    const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
+    const {logoutTC} = useActions(authActions)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(initializeAppTC())
+        dispatch(asyncAppActions.initializeAppTC())
     }, [])
 
-    const logout = useCallback(() => {
-        dispatch(logoutTC())
-    }, [])
+    const logout = useCallback(() => logoutTC(), [])
 
     if (!isInitialized) {
         return <div
