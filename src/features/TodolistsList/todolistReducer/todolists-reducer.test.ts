@@ -6,7 +6,7 @@ import {
     todolistsReducer
 } from "./todolists-reducer";
 import {tasksReducer} from "../taskReducer/tasks-reducer";
-import {RequestStatusType} from "../../../app/appReducer/app-reducer";
+import {RequestStatusType} from "../../Application/appReducer/app-reducer";
 import {addTodolist, changeTodolistTitle, getTodolists, removeTodolist} from "./todolists-actions";
 
 let todolistId1 = v1();

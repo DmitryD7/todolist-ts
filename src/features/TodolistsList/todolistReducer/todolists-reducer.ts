@@ -1,12 +1,15 @@
-import {todolistAPI, TodolistType} from "../../../api/todolist-api";
-import {RequestStatusType, setAppStatusAC,} from "../../../app/appReducer/app-reducer";
+import {todolistAPI} from "../../../api/todolist-api";
+import {RequestStatusType, appActions} from "../../Application";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {
     handleAsyncServerAppError,
     handleAsyncServerNetworkError,
     handleServerNetworkError
 } from "../../../utils/errorUtils";
-import {ThunkError} from "../../../app/store";
+import {ThunkError} from "../../../utils/types";
+import {TodolistType} from "../../../api/types";
+
+const {setAppStatusAC} = appActions
 
 const getTodolists = createAsyncThunk('todoLists/getTodolists', async (param, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatusAC({status: 'loading'}))
@@ -105,7 +108,6 @@ export const slice = createSlice({
 })
 
 export const {changeTodolistEntityStatusAC, changeTodolistFilterAC} = slice.actions
-export const todolistsReducer = slice.reducer
 
 // TYPES
 export type FilterValueType = "all" | "active" | "completed";

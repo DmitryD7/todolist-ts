@@ -2,8 +2,8 @@ import React from 'react';
 import {Meta} from '@storybook/react/types-6-0';
 import {Task} from "./Task";
 import {action} from "@storybook/addon-actions";
-import {TaskPriorities, TaskStatuses} from "../../../../api/todolist-api";
 import {ReduxStoreProviderDecorator} from "../../../../stories/decorators/ReduxStoreProviderDecorator";
+import {TaskPriorities, TaskStatuses} from "../../../../api/types";
 
 export default {
     title: 'Example/Task',

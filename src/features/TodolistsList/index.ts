@@ -8,7 +8,8 @@ const todolistsActions = {
 }
 
 const tasksActions = {
-    ...tasksAsyncActions
+    ...tasksAsyncActions,
+    ...taskSlice.actions
 }
 
 const todolistsReducer = todolistSlice.reducer

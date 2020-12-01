@@ -13,14 +13,12 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import {TodolistsList} from "../features/TodolistsList";
 import {ErrorSnackbar} from "../components/ErrorSnackBar/ErrorSnackBar";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {Route} from 'react-router-dom';
-import {Login} from "../features/Auth";
-import {asyncAppActions} from "./appReducer/app-reducer";
-import {selectIsInitialized, selectStatus} from "./selectors";
-import {useActions} from "./store";
-import {authActions} from "../features/Auth";
-import {authSelectors} from "../features/Auth";
+import {authActions, authSelectors, Login} from "../features/Auth";
+import {appActions} from "../features/Application";
+import {selectIsInitialized, selectStatus} from "../features/Application/selectors";
+import {useActions} from "../utils/reduxUtils";
 
 type AppPropsType = {
     demo?: boolean
@@ -31,10 +29,10 @@ export const App = React.memo(({demo = false, ...props}: AppPropsType) => {
     const isInitialized = useSelector(selectIsInitialized)
     const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
     const {logoutTC} = useActions(authActions)
-    const dispatch = useDispatch()
+    const {initializeAppTC} = useActions(appActions)
 
     useEffect(() => {
-        dispatch(asyncAppActions.initializeAppTC())
+        initializeAppTC()
     }, [])
 
     const logout = useCallback(() => logoutTC(), [])

@@ -4,11 +4,12 @@ import {Button, IconButton, Paper, PropTypes} from "@material-ui/core";
 import {Delete} from '@material-ui/icons';
 import {useSelector} from "react-redux";
 import {FilterValueType, TodolistDomainType} from "../todolistReducer/todolists-reducer";
-import {AppRootStateType, useActions, useAppDispatch} from "../../../app/store";
 import {AddItemForm, AddItemFormSubmitHelpersType} from "../../../components/AddItemForm/AddItemForm";
 import {Task} from "./Task/Task";
-import {TaskStatuses, TaskType} from "../../../api/todolist-api";
 import {tasksActions, todolistsActions} from "../index";
+import {useActions, useAppDispatch} from "../../../utils/reduxUtils";
+import {AppRootStateType} from "../../../utils/types";
+import {TaskStatuses, TaskType} from "../../../api/types";
 
 type PropsType = {
     demo?: boolean,

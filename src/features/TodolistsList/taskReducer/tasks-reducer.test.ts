@@ -6,9 +6,9 @@ import {
     TodolistDomainType,
     todolistsReducer
 } from "../todolistReducer/todolists-reducer";
-import {TaskPriorities, TaskStatuses} from "../../../api/todolist-api";
 import {addTask, getTasks, removeTask, updateTask} from "./tasks-actions";
 import {addTodolist, getTodolists, removeTodolist} from "../todolistReducer/todolists-actions";
+import {TaskPriorities, TaskStatuses} from "../../../api/types";
 
 const startState: TasksStateType = {
     "todolistId1": [

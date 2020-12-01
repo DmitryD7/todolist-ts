@@ -1,13 +1,14 @@
 import React, {useCallback, useEffect} from "react";
 import {TodolistDomainType} from "./todolistReducer/todolists-reducer";
 import {useSelector} from "react-redux";
-import {AppRootStateType, useActions, useAppDispatch} from "../../app/store";
 import {Grid} from "@material-ui/core";
 import {AddItemForm, AddItemFormSubmitHelpersType} from "../../components/AddItemForm/AddItemForm";
 import {TodoList} from "./Todolist/Todolist";
 import {Redirect} from "react-router-dom";
 import {selectIsLoggedIn} from "../Auth/selectors";
-import {tasksActions, todolistsActions} from "./index";
+import {todolistsActions} from "./index";
+import {useActions, useAppDispatch} from "../../utils/reduxUtils";
+import {AppRootStateType} from "../../utils/types";
 
 type TodolistsListPropsType = {
     demo?: boolean
@@ -33,7 +34,6 @@ export function TodolistsList({demo = false, ...props}: TodolistsListPropsType) 
             helper.setTitle('')
         }
     }, [])
-
 
 
     useEffect(() => {
