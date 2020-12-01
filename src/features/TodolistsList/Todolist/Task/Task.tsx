@@ -16,16 +16,20 @@ export const Task = React.memo((props: TaskPropsType) => {
 
     const onStatusChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         updateTask(
-            {taskId: props.task.id,
+            {
+                taskId: props.task.id,
                 todolistId: props.todoListId,
-                domainModel: {status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New}})
-    },[props.task.id, props.todoListId])
+                domainModel: {status: e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New}
+            })
+    }, [props.task.id, props.todoListId])
 
     const onTitleChangeCallback = useCallback((newTitle: string) => {
-            updateTask({taskId: props.task.id,
-                    todolistId: props.todoListId,
-                    domainModel: {title: newTitle}})
-        },[props.task.id, props.todoListId])
+        updateTask({
+            taskId: props.task.id,
+            todolistId: props.todoListId,
+            domainModel: {title: newTitle}
+        })
+    }, [props.task.id, props.todoListId])
 
     const removeTaskHandler = useCallback(() => removeTask({taskId: props.task.id, todolistId: props.todoListId}),
         [props.task.id, props.todoListId])
@@ -41,8 +45,10 @@ export const Task = React.memo((props: TaskPropsType) => {
             <EditableSpan title={props.task.title} setNewTitle={onTitleChangeCallback}/>
             <IconButton
                 onClick={removeTaskHandler}
-                style={{marginLeft: 'auto'}}>
-                <DeleteOutline/>
+                style={{marginLeft: 'auto'}}
+                size={"small"}
+            >
+                <DeleteOutline fontSize={"small"}/>
             </IconButton>
         </div>
     )

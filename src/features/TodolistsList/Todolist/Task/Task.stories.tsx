@@ -3,18 +3,17 @@ import {Meta} from '@storybook/react/types-6-0';
 import {Task} from "./Task";
 import {action} from "@storybook/addon-actions";
 import {TaskPriorities, TaskStatuses} from "../../../../api/todolist-api";
+import {ReduxStoreProviderDecorator} from "../../../../stories/decorators/ReduxStoreProviderDecorator";
 
 export default {
     title: 'Example/Task',
     component: Task,
+    decorators: [ReduxStoreProviderDecorator]
 } as Meta;
 
 export const TaskExample = () => {
     return <>
         <Task
-            changeTaskStatus={action('Task status was changed')}
-            changeTaskTitle={action('Task title was changed')}
-            removeTask={action('Task was removed')}
             todoListId={'todolistId1'}
             task={{
                 id: '1',
@@ -30,9 +29,6 @@ export const TaskExample = () => {
             }}
         />
         <Task
-            changeTaskStatus={action('Task status was changed')}
-            changeTaskTitle={action('Task title was changed')}
-            removeTask={action('Task was removed')}
             todoListId={'todolistId1'}
             task={{
                 id: '2',

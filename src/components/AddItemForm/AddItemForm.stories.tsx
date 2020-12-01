@@ -8,10 +8,14 @@ export default {
     component: AddItemForm,
 } as Meta;
 
+const asyncCallback = async (...params: any[]) => {
+    action('Button clicked')(...params)
+}
+
 export const AddItemFormBasic = () => {
-    return <AddItemForm addItem={action('Button clicked')}/>
+    return <AddItemForm addItem={asyncCallback}/>
 }
 
 export const AddItemFormDisabledExample = () => {
-    return <AddItemForm addItem={action('Button clicked')} disabled={true}/>
+    return <AddItemForm addItem={asyncCallback} disabled={true}/>
 }

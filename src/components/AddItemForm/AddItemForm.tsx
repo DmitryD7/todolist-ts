@@ -2,27 +2,31 @@ import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {IconButton, TextField} from "@material-ui/core";
 import {AddBox} from '@material-ui/icons';
 
+export type AddItemFormSubmitHelpersType = {
+    setError: (error: string) => void
+    setTitle: (title: string) => void
+}
+
 type AddItemFormPropsType = {
-    addItem: (title: string) => void,
+    addItem: (title: string, helper: AddItemFormSubmitHelpersType) => void,
     disabled?: boolean
 }
 
 export const AddItemForm = React.memo(({addItem, disabled = false}: AddItemFormPropsType) => {
-    let [title, setTitle] = useState<string>("");
-    let [error, setError] = useState<string | null>(null);
+    let [title, setTitle] = useState<string>("")
+    let [error, setError] = useState<string | null>(null)
 
-    const addItemHandler = () => {
+    const addItemHandler = async () => {
         if (title.trim() !== "") {
-            addItem(title);
+            addItem(title, {setError, setTitle})
         } else {
             setError("Field is required!")
         }
-        setTitle("");
-    };
+    }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value);
-    };
+        setTitle(e.currentTarget.value)
+    }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (error !== null) {
@@ -31,7 +35,7 @@ export const AddItemForm = React.memo(({addItem, disabled = false}: AddItemFormP
         if (e.charCode === 13) {
             addItemHandler()
         }
-    };
+    }
 
     return (
         <div onBlur={() => setError(null)}>
@@ -49,6 +53,7 @@ export const AddItemForm = React.memo(({addItem, disabled = false}: AddItemFormP
                 disabled={disabled}
                 onClick={addItemHandler}
                 color={"primary"}
+                style={{marginLeft: '7px'}}
             >
                 <AddBox/>
             </IconButton>
