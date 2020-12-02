@@ -28,14 +28,14 @@ export const App = React.memo(({demo = false, ...props}: AppPropsType) => {
     const status = useSelector(selectStatus)
     const isInitialized = useSelector(selectIsInitialized)
     const isLoggedIn = useSelector(authSelectors.selectIsLoggedIn)
-    const {logoutTC} = useActions(authActions)
-    const {initializeAppTC} = useActions(appActions)
+    const {logout} = useActions(authActions)
+    const {initializeApp} = useActions(appActions)
 
     useEffect(() => {
-        initializeAppTC()
+        initializeApp()
     }, [])
 
-    const logout = useCallback(() => logoutTC(), [])
+    const logoutHandler = useCallback(() => logout(), [])
 
     if (!isInitialized) {
         return <div
@@ -54,7 +54,7 @@ export const App = React.memo(({demo = false, ...props}: AppPropsType) => {
                 <Typography variant="h6">
                     ToDo-Lists
                 </Typography>
-                {isLoggedIn && <Button color="inherit" onClick={logout}>Log out</Button>}
+                {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
             </Toolbar>
             {status === 'loading' && <LinearProgress/>}
         </AppBar>

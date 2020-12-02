@@ -51,9 +51,9 @@ export function TodolistsList({demo = false, ...props}: TodolistsListPropsType) 
         <Grid container style={{padding: '20px', margin: '10px'}}>
             <AddItemForm addItem={onAddItemHandler}/>
         </Grid>
-        <Grid container spacing={5} style={{flexWrap: 'nowrap', overflowX: 'scroll'}}>
+        <Grid container spacing={7}>
             {todolists.map(tl => <Grid item key={tl.id}>
-                <div style={{width: '285px'}}>
+                <div >
                     <TodoList
                         todolist={tl}
                         demo={demo}

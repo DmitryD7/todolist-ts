@@ -10,7 +10,7 @@ import {LoginParamsType} from "../../api/types";
 
 export const Login = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn)
-    const {loginTC} = useActions(authActions)
+    const {login} = useActions(authActions)
     const dispatch = useAppDispatch()
 
     const validate = (values: LoginParamsType) => {
@@ -39,8 +39,8 @@ export const Login = () => {
         },
         validate,
         onSubmit: async (values, formikHelpers: FormikHelpers<FormValuesType>) => {
-            const action = await dispatch(loginTC(values))
-            if (loginTC.rejected.match(action)) {
+            const action = await dispatch(login(values))
+            if (login.rejected.match(action)) {
                 if (action.payload?.fieldsErrors?.length) {
                     const error = action.payload?.fieldsErrors[0]
                     formikHelpers.setFieldError(error.field, error.error)
