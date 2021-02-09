@@ -38,8 +38,8 @@ const addTodolist = createAsyncThunk<{ todolist: TodolistType }, string, ThunkEr
 const removeTodolist = createAsyncThunk<{id: string}, string, ThunkError>('todoLists/removeTodolist', async (todolistId, thunkAPI) => {
     thunkAPI.dispatch(setAppStatus({status: 'loading'}))
     thunkAPI.dispatch(changeTodolistEntityStatusAC({id: todolistId, status: "loading"}))
-    const res = await todolistAPI.deleteTodolist(todolistId)
     try {
+        const res = await todolistAPI.deleteTodolist(todolistId)
         thunkAPI.dispatch(setAppStatus({status: 'succeeded'}))
         return {id: todolistId}
     } catch (error) {
@@ -47,8 +47,8 @@ const removeTodolist = createAsyncThunk<{id: string}, string, ThunkError>('todoL
     }
 })
 const changeTodolistTitle = createAsyncThunk<{id: string, title: string}, { todolistId: string, newTodolistTitle: string }, ThunkError>('todoLists/changeTodolistTitle', async (param, thunkAPI) => {
-    const res = await todolistAPI.updateTodolistTitle(param.todolistId, param.newTodolistTitle)
     try {
+        const res = await todolistAPI.updateTodolistTitle(param.todolistId, param.newTodolistTitle)
         if (res.data.resultCode === 0) {
             return {id: param.todolistId, title: param.newTodolistTitle}
         } else {

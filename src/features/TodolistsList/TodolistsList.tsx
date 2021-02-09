@@ -21,8 +21,7 @@ export function TodolistsList({demo = false, ...props}: TodolistsListPropsType) 
     const dispatch = useAppDispatch()
 
     const onAddItemHandler = useCallback(async (title: string, helper: AddItemFormSubmitHelpersType) => {
-        let thunk = todolistsActions.addTodolist(title)
-        const resultAction = await dispatch(thunk)
+        const resultAction = await dispatch(todolistsActions.addTodolist(title))
         if (todolistsActions.addTodolist.rejected.match(resultAction)) {
             if (resultAction.payload?.errors?.length) {
                 const errorMessage = resultAction.payload?.errors[0]
